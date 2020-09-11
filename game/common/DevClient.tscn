@@ -1,0 +1,99 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://common/DevClient.gd" type="Script" id=1]
+
+[node name="DevClient" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DevClientDisplay" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DevClientDisplay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuWrap" type="VBoxContainer" parent="DevClientDisplay/VBoxContainer"]
+margin_left = 471.0
+margin_right = 552.0
+margin_bottom = 164.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="title" type="Label" parent="DevClientDisplay/VBoxContainer/MenuWrap"]
+margin_right = 81.0
+margin_bottom = 14.0
+text = "Main Menu"
+align = 1
+valign = 1
+
+[node name="port_server" type="LineEdit" parent="DevClientDisplay/VBoxContainer/MenuWrap"]
+margin_top = 18.0
+margin_right = 81.0
+margin_bottom = 42.0
+text = "8080"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Host" type="Button" parent="DevClientDisplay/VBoxContainer/MenuWrap"]
+margin_top = 46.0
+margin_right = 81.0
+margin_bottom = 66.0
+text = "Be A Host"
+
+[node name="divider" type="PanelContainer" parent="DevClientDisplay/VBoxContainer/MenuWrap"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 70.0
+margin_right = 81.0
+margin_bottom = 84.0
+
+[node name="ip_client" type="LineEdit" parent="DevClientDisplay/VBoxContainer/MenuWrap"]
+margin_top = 88.0
+margin_right = 81.0
+margin_bottom = 112.0
+text = "localhost"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="port_client" type="LineEdit" parent="DevClientDisplay/VBoxContainer/MenuWrap"]
+margin_top = 116.0
+margin_right = 81.0
+margin_bottom = 140.0
+text = "8080"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_Client" type="Button" parent="DevClientDisplay/VBoxContainer/MenuWrap"]
+margin_top = 144.0
+margin_right = 81.0
+margin_bottom = 164.0
+text = "Be a Client"
+
+[node name="Game" type="VBoxContainer" parent="DevClientDisplay/VBoxContainer"]
+visible = false
+margin_top = 168.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="title" type="Label" parent="DevClientDisplay/VBoxContainer/Game"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "GAME"
+[connection signal="pressed" from="DevClientDisplay/VBoxContainer/MenuWrap/Button_Host" to="." method="_on_Button_Host_pressed"]
+[connection signal="pressed" from="DevClientDisplay/VBoxContainer/MenuWrap/Button_Client" to="." method="_on_Button_Client_pressed"]
