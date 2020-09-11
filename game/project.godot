@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "RigidBody",
+"class": "Player",
+"language": "GDScript",
+"path": "res://common/Player.gd"
+}, {
+"base": "Player",
+"class": "Player0",
+"language": "GDScript",
+"path": "res://common/Player0.gd"
+} ]
 _global_script_class_icons={
-
+"Player": "",
+"Player0": ""
 }
 
 [application]

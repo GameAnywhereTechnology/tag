@@ -1,12 +1,13 @@
 extends Node
 
 signal signal_lobbyFull;
+signal signal_worldAdded(worldLevel);
 # Declare member variables here. Examples:
 # var a = 2
 export var canAlsoBeClient : bool = true;
 
 var maxNumOfPlayers = -1;
-var myInfo = { name = "Anonymous", favorite_color = Color8(255, 0, 255) }
+var myInfo = { id = "", name = "Anonymous", favorite_color = Color8(255, 0, 255), selectedCharacter = "Player0" }
 var playerInfo = {};
 var playersDone = [];
 
@@ -17,6 +18,8 @@ func _ready():
 func _player_connected(paramID : int):
 	# called on both clients and server when a peer connects
 	var SERVER_ID = 1;
+	myInfo.id = self.multiplayer.get_network_unique_id();
+	
 	if (self.multiplayer.get_network_unique_id() != SERVER_ID):
 		self.rpc_id(paramID, "fnRegisterPlayer", myInfo);
 	elif (self.multiplayer.get_network_unique_id() == SERVER_ID) && (self.canAlsoBeClient == true):
@@ -70,7 +73,8 @@ remote func fnRegisterPlayer (paramInfo):
 
 
 func fnCloseLobby():
-	self.multiplayer.refuse_new_network_connections = true;
+	var mp = self.multiplayer;
+	mp.refuse_new_network_connections = true;
 	return;
 
 
@@ -86,10 +90,12 @@ func fnOpenLobby():
 
 
 func preconfigureGame(levelInst):
-	self.multiplayer.set_pause(true);
+	get_tree().paused = true;
 	
 	self.add_child(levelInst);
 	levelInst.name = "World";
+	
+	self.emit_signal("signal_worldAdded", levelInst);
 	
 	if (levelInst.has_method("preconfigureGame")):
 		var selfInfo = self.fnGetSelfInfo();
@@ -118,10 +124,10 @@ remote func done_preconfiguring():
 	return;
 
 
-remotesync func post_configure_game():
+remote func post_configure_game():
 	# Only the server is allowed to tell a client to unpause
 	if 1 == self.multiplayer.get_rpc_sender_id():
-		self.multiplayer.set_pause(false);
+		get_tree().paused = false;
 	return;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

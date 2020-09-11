@@ -13,6 +13,7 @@
 extends Node
 
 var numOfPlayers = 0;
+var soonToBeParent;
 
 func _init():
 	# First, we assign a new MultiplayerAPI to our this node
@@ -33,6 +34,8 @@ func _ready():
 	self.multiplayer.connect("connection_failed", $Lobby, "_connected_fail");
 	self.multiplayer.connect("server_disconnected", $Lobby,"_server_disconnected");
 	
+	if (self.soonToBeParent != null):
+		$Lobby.connect("signal_worldAdded", self.soonToBeParent, "_onSignalWorldCreated");
 	$Lobby.connect("signal_lobbyFull", self, "_onLobbyFull");
 	return;
 
@@ -121,14 +124,19 @@ func fnStartServer(paramPort, paramMaxPlayers):
 func _onLobbyFull(paramPlayerInfo, paramSelfInfo):
 	var levels : Dictionary = $Common.fnGetLevels();
 	var randLevel = randi() % levels.size();
-	var levelKey = 'Level_' + str(randLevel);
+	var levelKey = 'LEVEL_' + str(randLevel);
 	
-	if ($Common.has_method("preconfigureGame")):
-		var levelPath = levels[levelKey];
-		var levelClass := load(levelPath);
-		if (levelClass):
-			var levelInst = levelClass.instance();
-			$Common.preconfigureGame(levelInst);
+	if ($Lobby.has_method("preconfigureGame")):
+		if (levels.has(levelKey)):
+			var levelPath = levels[levelKey];
+			var levelClass := load(levelPath);
+			if (levelClass):
+				var levelInst = levelClass.instance();
+				$Lobby.preconfigureGame(levelInst);
+		else:
+			print("Level not found: " + levelKey);
+	else:
+		print("Preconfigure not called");
 	return;
 
 

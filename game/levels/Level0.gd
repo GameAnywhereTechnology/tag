@@ -17,18 +17,19 @@ func preconfigureGame(paramPlayerInfo, paramSelfInfo):
 	# Load my player
 	if (paramSelfInfo != null):
 		var chosenCharacterPath = paramSelfInfo.selectedCharacter; # "res://player.tscn";
-		var my_player = load(chosenCharacterPath).instance();
+		var my_player = load("res://common/" + chosenCharacterPath + ".tscn").instance();
 		my_player.set_name(str(paramSelfInfo.id));
-		my_player.set_network_master(paramSelfInfo.id) # Will be explained later
-		get_node("/root/world/players").add_child(my_player)
+		my_player.set_network_master(paramSelfInfo.id) # if you want server to be in control set_network_master(1); else it's similar to p2p
+		self.add_child(my_player)
 	
 	# Load other players
-	for p in paramPlayerInfo:
-		var chosenCharacterPath = paramPlayerInfo.selectedCharacter; # "res://player.tscn";
-		var player = load(chosenCharacterPath).instance();
-		player.set_name(str(p))
-		player.set_network_master(p) # Will be explained later
-		get_node("/root/world/players").add_child(player);
+	for pID in paramPlayerInfo:
+		var pInfo = paramPlayerInfo[pID];
+		var chosenCharacterPath = pInfo.selectedCharacter; # "res://player.tscn";
+		var player = load("res://common/" + chosenCharacterPath + ".tscn").instance();
+		player.set_name(str(pInfo.id))
+		player.set_network_master(pInfo.id) # if you want server to be in control set_network_master(1); else it's similar to p2p
+		self.add_child(player);
 	
 	emit_signal("signal_done_preconfiguring");
 	pass;

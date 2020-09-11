@@ -3,7 +3,7 @@ extends Node
 
 # Declare member variables here. Examples:
 var LEVELS := {
-	LEVEL_0 = "res://levels/Level1.tscn"
+	LEVEL_0 = "res://levels/Level0.tscn"
 };
 
 
