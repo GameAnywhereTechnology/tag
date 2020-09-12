@@ -18,7 +18,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _onSignalWorldCreated(worldLevel : Spatial):
+func _onSignalWorldCreated(_worldLevel : Spatial):
 	print("World created");
 #	$DevClientDisplay/VBoxContainer/Game/ViewportContainer/Viewport.add_child(worldLevel);
 	return;

@@ -27,16 +27,20 @@ func _init():
 func _ready():
 	$Lobby.maxNumOfPlayers = self.numOfPlayers;
 	
-	self.multiplayer.connect("network_peer_connected", $Lobby, "_player_connected");
-	self.multiplayer.connect("network_peer_disconnected", $Lobby, "_player_disconnected");
+	var err;
+	err = self.multiplayer.connect("network_peer_connected", $Lobby, "_player_connected");
+	err = self.multiplayer.connect("network_peer_disconnected", $Lobby, "_player_disconnected");
 	# client signals
-	self.multiplayer.connect("connected_to_server", $Lobby, "_connected_ok");
-	self.multiplayer.connect("connection_failed", $Lobby, "_connected_fail");
-	self.multiplayer.connect("server_disconnected", $Lobby,"_server_disconnected");
+	err = self.multiplayer.connect("connected_to_server", $Lobby, "_connected_ok");
+	err = self.multiplayer.connect("connection_failed", $Lobby, "_connected_fail");
+	err = self.multiplayer.connect("server_disconnected", $Lobby,"_server_disconnected");
 	
 	if (self.soonToBeParent != null):
-		$Lobby.connect("signal_worldAdded", self.soonToBeParent, "_onSignalWorldCreated");
-	$Lobby.connect("signal_lobbyFull", self, "_onLobbyFull");
+		err = $Lobby.connect("signal_worldAdded", self.soonToBeParent, "_onSignalWorldCreated");
+	err = $Lobby.connect("signal_lobbyFull", self, "_onLobbyFull");
+	
+	if (err != OK):
+		print("ERR: " + String(err));
 	return;
 
 # We want to listen to NOTIFICATION_ENTER_TREE to change the custom_multiplayer
@@ -49,7 +53,9 @@ func _notification(what):
 	if what == NOTIFICATION_ENTER_TREE:
 		# We also want to customize all nodes that will be added dinamically
 		# later on.
-		get_tree().connect("node_added", self, "_on_add_node")
+		var err = get_tree().connect("node_added", self, "_on_add_node");
+		if (err != OK):
+			print("Err: " + String(err));
 		_customize_children()
 	elif what == NOTIFICATION_EXIT_TREE:
 		# Don't forget to disconnect
@@ -59,7 +65,7 @@ func _notification(what):
 
 # When the MultiplayerAPI is not managed directly by the SceneTree
 # we MUST poll it
-func _process(delta):
+func _process(_delta):
 	if not custom_multiplayer.has_network_peer():
 		return # No network peer, nothing to poll
 	# Poll the MultiplayerAPI so it fetches packets, emit signals, process RPCs
@@ -121,7 +127,7 @@ func fnStartServer(paramPort, paramMaxPlayers):
 	$Lobby.fnOpenLobby();
 	return err;
 
-func _onLobbyFull(paramPlayerInfo, paramSelfInfo):
+func _onLobbyFull(_paramPlayerInfo, _paramSelfInfo):
 	var levels : Dictionary = $Common.fnGetLevels();
 	var randLevel = randi() % levels.size();
 	var levelKey = 'LEVEL_' + str(randLevel);
