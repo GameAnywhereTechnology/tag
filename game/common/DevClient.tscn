@@ -87,6 +87,7 @@ margin_bottom = 164.0
 text = "Be a Client"
 
 [node name="Game" type="VBoxContainer" parent="DevClientDisplay/VBoxContainer"]
+visible = false
 margin_top = 168.0
 margin_right = 1024.0
 margin_bottom = 600.0
@@ -108,8 +109,11 @@ stretch = true
 
 [node name="Viewport" type="Viewport" parent="DevClientDisplay/VBoxContainer/Game/ViewportContainer"]
 size = Vector2( 480, 640 )
-own_world = true
+size_override_stretch = true
 handle_input_locally = false
-render_target_update_mode = 3
+render_target_update_mode = 0
+
+[node name="Camera" type="Camera" parent="DevClientDisplay/VBoxContainer/Game/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425936, 2.37091 )
 [connection signal="pressed" from="DevClientDisplay/VBoxContainer/MenuWrap/Button_Host" to="." method="_on_Button_Host_pressed"]
 [connection signal="pressed" from="DevClientDisplay/VBoxContainer/MenuWrap/Button_Client" to="." method="_on_Button_Client_pressed"]
