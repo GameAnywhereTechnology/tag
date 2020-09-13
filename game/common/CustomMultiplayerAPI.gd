@@ -10,7 +10,7 @@
 ### This node will apply a custom Multliplayer API instance (or RPC manager
 ### if you like) to all its childern, and manage them as INDEPENDENT branches
 ### in regards to RPCs/RSETs purpose
-extends Viewport
+extends Node
 
 var numOfPlayers = 0;
 var soonToBeParent;

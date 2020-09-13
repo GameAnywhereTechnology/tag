@@ -22,8 +22,7 @@ func preconfigureGame(paramPlayerInfo : Dictionary, paramSelfInfo):
 		my_player.set_network_master(paramSelfInfo.id) # if you want server to be in control set_network_master(1); else it's similar to p2p
 		self.add_child(my_player)
 	else:
-		print("Missing Self Info");
-		print(paramPlayerInfo.keys())
+		print("Missing Self Isnfo");
 	
 	# Load other players
 	for pID in paramPlayerInfo:
