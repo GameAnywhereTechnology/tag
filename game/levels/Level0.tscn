@@ -12,6 +12,7 @@
 script = ExtResource( 1 )
 
 [node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 8.06154, 0, 0, 0, 1, 0, 0, 0, 6.9078, 0, 0, 0 )
 mode = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
@@ -21,6 +22,66 @@ shape = SubResource( 1 )
 [node name="meshRoot" type="Spatial" parent="RigidBody"]
 
 [node name="CSGMesh" type="CSGMesh" parent="RigidBody/meshRoot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+mesh = SubResource( 2 )
+material = SubResource( 3 )
+
+[node name="RigidBody2" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 6.908, 7.021, 2.00511, 0 )
+mode = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+shape = SubResource( 1 )
+
+[node name="meshRoot" type="Spatial" parent="RigidBody2"]
+
+[node name="CSGMesh" type="CSGMesh" parent="RigidBody2/meshRoot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+mesh = SubResource( 2 )
+material = SubResource( 3 )
+
+[node name="RigidBody3" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 6.908, -6.94005, 2.00511, 0 )
+mode = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+shape = SubResource( 1 )
+
+[node name="meshRoot" type="Spatial" parent="RigidBody3"]
+
+[node name="CSGMesh" type="CSGMesh" parent="RigidBody3/meshRoot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+mesh = SubResource( 2 )
+material = SubResource( 3 )
+
+[node name="RigidBody4" type="RigidBody" parent="."]
+transform = Transform( 6.908, 0, 0, 0, 1, 0, 0, 0, 1, 0.0295835, 2.00511, 6.05379 )
+mode = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+shape = SubResource( 1 )
+
+[node name="meshRoot" type="Spatial" parent="RigidBody4"]
+
+[node name="CSGMesh" type="CSGMesh" parent="RigidBody4/meshRoot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+mesh = SubResource( 2 )
+material = SubResource( 3 )
+
+[node name="RigidBody5" type="RigidBody" parent="."]
+transform = Transform( 6.908, 0, 0, 0, 1, 0, 0, 0, 1, 0.0295835, 2.00511, -5.88733 )
+mode = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
+shape = SubResource( 1 )
+
+[node name="meshRoot" type="Spatial" parent="RigidBody5"]
+
+[node name="CSGMesh" type="CSGMesh" parent="RigidBody5/meshRoot"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00344, 0 )
 mesh = SubResource( 2 )
 material = SubResource( 3 )

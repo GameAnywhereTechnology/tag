@@ -12,7 +12,7 @@ func _ready():
 	pass # Replace with function body.
 
 
-func preconfigureGame(paramPlayerInfo, paramSelfInfo):
+func preconfigureGame(paramPlayerInfo : Dictionary, paramSelfInfo):
 	# load players and such.
 	# Load my player
 	if (paramSelfInfo != null):
@@ -21,6 +21,9 @@ func preconfigureGame(paramPlayerInfo, paramSelfInfo):
 		my_player.set_name(str(paramSelfInfo.id));
 		my_player.set_network_master(paramSelfInfo.id) # if you want server to be in control set_network_master(1); else it's similar to p2p
 		self.add_child(my_player)
+	else:
+		print("Missing Self Info");
+		print(paramPlayerInfo.keys())
 	
 	# Load other players
 	for pID in paramPlayerInfo:

@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://common/DevClient.gd" type="Script" id=1]
+
+[sub_resource type="ProceduralSky" id=1]
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+
+[sub_resource type="World" id=3]
+environment = SubResource( 2 )
 
 [node name="DevClient" type="Control"]
 anchor_right = 1.0
@@ -87,7 +96,6 @@ margin_bottom = 164.0
 text = "Be a Client"
 
 [node name="Game" type="VBoxContainer" parent="DevClientDisplay/VBoxContainer"]
-visible = false
 margin_top = 168.0
 margin_right = 1024.0
 margin_bottom = 600.0
@@ -110,8 +118,10 @@ stretch = true
 [node name="Viewport" type="Viewport" parent="DevClientDisplay/VBoxContainer/Game/ViewportContainer"]
 size = Vector2( 480, 640 )
 size_override_stretch = true
+own_world = true
+world = SubResource( 3 )
 handle_input_locally = false
-render_target_update_mode = 0
+render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="DevClientDisplay/VBoxContainer/Game/ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425936, 2.37091 )

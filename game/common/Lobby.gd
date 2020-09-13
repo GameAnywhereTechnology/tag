@@ -52,7 +52,8 @@ func _callLobbyFull():
 
 
 func fnGetSelfInfo():
-	return myInfo if ((self.canAlsoBeClient == true) && self.multiplayer.get_network_unique_id() == 1) else null;
+	var selfID = self.multiplayer.get_network_unique_id();
+	return myInfo if (((self.canAlsoBeClient == true) && (selfID == 1)) || (selfID != 1)) else null;
 
 remote func fnRegisterPlayer (paramInfo):
 	if (self.maxNumOfPlayers > 1) && (self.playerInfo.size() == (self.maxNumOfPlayers - 1)):
@@ -90,18 +91,20 @@ func fnOpenLobby():
 
 
 func preconfigureGame(levelInst):
-	get_tree().paused = true;
+#	get_tree().paused = true;
 	
-	self.add_child(levelInst);
 	levelInst.name = "World";
-	
+
 	self.emit_signal("signal_worldAdded", levelInst);
 	
+	if (levelInst.get_parent() == null):
+		self.add_child(levelInst);
+
 	if (levelInst.has_method("preconfigureGame")):
 		var selfInfo = self.fnGetSelfInfo();
 		levelInst.preconfigureGame(self.playerInfo, selfInfo);
-	
-	levelInst.connect("signal_done_preconfiguring", self, "_on_signal_done_preconfiguring");
+
+	levelInst.connect("signal_done_preconfiguring", self, "_on_signal_preconfigure_done");
 	return;
 
 

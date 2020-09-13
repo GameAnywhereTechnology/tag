@@ -10,7 +10,7 @@
 ### This node will apply a custom Multliplayer API instance (or RPC manager
 ### if you like) to all its childern, and manage them as INDEPENDENT branches
 ### in regards to RPCs/RSETs purpose
-extends Node
+extends Viewport
 
 var numOfPlayers = 0;
 var soonToBeParent;
@@ -131,7 +131,7 @@ func _onLobbyFull(_paramPlayerInfo, _paramSelfInfo):
 	var levels : Dictionary = $Common.fnGetLevels();
 	var randLevel = randi() % levels.size();
 	var levelKey = 'LEVEL_' + str(randLevel);
-	
+#
 	if ($Lobby.has_method("preconfigureGame")):
 		if (levels.has(levelKey)):
 			var levelPath = levels[levelKey];

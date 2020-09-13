@@ -20,7 +20,7 @@ func _ready():
 
 func _onSignalWorldCreated(_worldLevel : Spatial):
 	print("World created");
-#	$DevClientDisplay/VBoxContainer/Game/ViewportContainer/Viewport.add_child(worldLevel);
+	$DevClientDisplay/VBoxContainer/Game/ViewportContainer/Viewport.add_child(_worldLevel);
 	return;
 
 
