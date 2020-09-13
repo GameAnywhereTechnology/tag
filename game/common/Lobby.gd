@@ -89,9 +89,25 @@ func fnOpenLobby():
 	tempMult.refuse_new_network_connections = false;
 	return;
 
+func freeze_node(node, freeze):
+	node.set_process(!freeze);
+	node.set_physics_process(!freeze);
+	node.set_process_input(!freeze);
+	node.set_process_internal(!freeze);
+	node.set_process_unhandled_input(!freeze);
+	node.set_process_unhandled_key_input(!freeze);
+	return;
+
+func freeze_scene(node, freeze):
+	freeze_node(node, freeze);
+	for c in node.get_children():
+		freeze_scene(c, freeze);
+	return;
+
 
 func preconfigureGame(levelInst):
 #	get_tree().paused = true;
+	self.freeze_scene(self, true);
 	
 	levelInst.name = "World";
 
@@ -130,7 +146,8 @@ remote func done_preconfiguring():
 remote func post_configure_game():
 	# Only the server is allowed to tell a client to unpause
 	if 1 == self.multiplayer.get_rpc_sender_id():
-		get_tree().paused = false;
+#		get_tree().paused = false;
+		self.freeze_scene(self, false);
 	return;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
